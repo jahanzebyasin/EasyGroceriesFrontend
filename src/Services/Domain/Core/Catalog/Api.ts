@@ -3,6 +3,7 @@ import fetch from "node-fetch";
 import { Catalog } from "./Catalog";
 import { CatalogType } from "./CatalogType";
 import EndPoints from "../../../../Common/Config/Endpoints";
+import data from "../../../../Data/Catalog/Catalog.json";
 
 export class Api {
     async request<TResponse>(url: string, config?: any): Promise<TResponse> {
@@ -16,7 +17,7 @@ export class Api {
 
     async getCatalogList():Promise<Catalog[]> {
         try {
-            const data = await this.request<any>(EndPoints.CATALOG_BASE_URL);
+            // const data = await this.request<any>(EndPoints.CATALOG_BASE_URL);
             let catalogList: Catalog[] = [];
             catalogList = data.map((item:any, index:number) => {
                 return new Catalog(item.id, item.name , item.description, item.quantity, CatalogType.Tangable, item.price);

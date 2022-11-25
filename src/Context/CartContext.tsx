@@ -1,9 +1,9 @@
 import React, { ReactNode, useContext } from "react";
 import { CartContextType, ICart } from "../@types/cart";
-import { Cart } from "../Components/cart/Cart";
+import { Cart } from "../Components/Cart/Cart";
 import { Catalog } from "../Services/Domain/Core/Catalog/Catalog";
 import {v4 as uuidv4} from 'uuid';
-import { CatalogType } from "../Services/Domain/Core/Catalog/CatalogType";
+import { CatalogType, CatalogTypeDiscountCalculatorDictionary, CatalogTypeDiscountDictionary } from "../Services/Domain/Core/Catalog/CatalogType";
 import { Order } from "../Services/Domain/Support/Order/Order";
 import { OrderItem } from "../Services/Domain/Support/Order/OrderItem";
 import {Api as OrderApi}  from "../Services/Domain/Support/Order/Api";
@@ -43,16 +43,10 @@ export function CartProvider({children}:CartProviderProps){
     }
 
     function  getTotalAmount() {
-        //check if there is a loyality product
-        const loyalityProd = cartProducts.filter((p) => p.Type == CatalogType.NonTangable );
         const totalAmount = cartProducts.reduce((accumulator, prod) => {
-            if(prod.Type == CatalogType.Tangable && loyalityProd.length > 0) {
-                return accumulator + (prod.Price * 0.2);
-            } else {
-                return accumulator + prod.Price;
-            }
-        }, 0);
-        return totalAmount;
+                    return accumulator + (CatalogTypeDiscountCalculatorDictionary[prod.Type](prod));
+            }, 0);
+            return totalAmount;
     }
 
     function getProductCountById(id:string) {
@@ -70,7 +64,7 @@ export function CartProvider({children}:CartProviderProps){
     }
 
     function addLoyalityMembership():Catalog {
-        let loyaltyProd = new Catalog(uuidv4(),"Loyality Membership","20% discount",1,CatalogType.NonTangable,5.00); 
+        let loyaltyProd = new Catalog(uuidv4(),"Loyality Membership","20% discount",1,CatalogType.LoyalityMembership,5.00); 
         setCartProducts((prods) => {
             return [...prods,loyaltyProd];
         });
@@ -84,9 +78,7 @@ export function CartProvider({children}:CartProviderProps){
 
     function removeOneProduct(prod:Catalog):void {
         let withoutList = cartProducts.filter((prodItem) => prodItem.Id !== prod.Id );
-        console.log(withoutList);
         let withList = cartProducts.filter((prodItem) => prodItem.Id == prod.Id );
-        console.log(withList);
         let oneLessList:Catalog[] = [];
         if(withList.length == 1) {
             withList = [];

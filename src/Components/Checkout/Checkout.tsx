@@ -9,6 +9,9 @@ import { OrderItem } from "../../Services/Domain/Support/Order/OrderItem";
 import {v4 as uuidv4} from 'uuid';
 import { Order } from "../../Services/Domain/Support/Order/Order";
 import {Api as OrderApi}  from "../../Services/Domain/Support/Order/Api";
+import { disconnect } from "process";
+import Discount from "../../Services/Domain/Support/Order/Discount";
+import { DiscountType } from "../../Services/Domain/Support/Order/DiscountType";
 
 
 const Checkout:React.FC = () => {
@@ -56,6 +59,7 @@ const Checkout:React.FC = () => {
           854124,
           35496,
           orderItems,
+          new Discount(DiscountType.AllCatalog,0.20),
           getTotalAmount()
           );
 

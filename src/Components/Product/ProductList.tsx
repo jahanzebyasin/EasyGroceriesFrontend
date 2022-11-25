@@ -1,4 +1,5 @@
 import React from "react";
+import { Row } from "react-bootstrap";
 import {Api} from '../../Services/Domain/Core/Catalog/Api';
 import { Catalog } from "../../Services/Domain/Core/Catalog/Catalog";
 import Product from "./Product";
@@ -16,7 +17,9 @@ const ProductList: React.FC =  () => {
      },[]);
     return (
         <div className="Product-container">
-            {products.map((item:Catalog) => <Product key={item.Id} product={item}></Product>)}
+            <Row xs={1} md={4} className="g-4">
+                {products.map((item:Catalog) => <Product key={item.Id} product={item}></Product>)}
+            </Row>
         </div>
     );
 }

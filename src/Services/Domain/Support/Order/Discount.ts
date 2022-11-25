@@ -19,6 +19,7 @@ export default class Discount{
     public get DiscountPercentage(): number {
         return this.discountPercentage;
     }
+    
     public set DiscountPercentage(value: number) {
         this.discountPercentage = value;
     }

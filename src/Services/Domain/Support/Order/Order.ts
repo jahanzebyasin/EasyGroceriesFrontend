@@ -1,6 +1,7 @@
 import { Catalog } from "../../Core/Catalog/Catalog";
 import {v4 as uuidv4} from 'uuid';
 import { OrderItem } from "./OrderItem";
+import Discount from "./Discount";
 
 export class Order {
     private id:string;
@@ -8,19 +9,24 @@ export class Order {
     private orderNumber:number;
     private customer:number;
     private orderItems : (OrderItem)[];
+    private discount:Discount;
     private total : number;
     
-    
-    
-
-
-    constructor(userId:string, orderNumber:number, customer:number, orderItems:OrderItem[], total:number) {
+    constructor(
+        userId:string, 
+        orderNumber:number, 
+        customer:number, 
+        orderItems:OrderItem[],
+        discoount:Discount,
+        total:number
+        ) {
         this.orderItems = orderItems;
         this.id = uuidv4();
         this.orderNumber = orderNumber;
         this.total = total;
         this.userId = userId;
         this.customer = customer;
+        this.discount = discoount;
     }
 
     get Items():(OrderItem)[] {
@@ -47,7 +53,7 @@ export class Order {
         return this.total;
     }
 
-    
-
-
+    get Discount():Discount {
+        return this.discount;
+    }
 }

@@ -1,0 +1,34 @@
+[
+    {
+      "id": "a7f963a1-60c9-4a36-a8a2-8dd48a9a6661",
+      "name": "Milk",
+      "description": "Best of Cows",
+      "quantity": 100,
+      "price": 1.20,
+      "type": "Tangable"
+    },
+    {
+      "id": "a13446a4-b404-4b63-9a3e-63c6b77df822",
+      "name": "Bread",
+      "description": "Easy Toast",
+      "quantity": 100,
+      "price": 1.00,
+      "type": "Tangable"
+    },
+    {
+      "id": "13b656f3-dd96-40ec-8805-aa8bbbddf183",
+      "name": "Eggs",
+      "description": "Wild chicken",
+      "quantity": 500,
+      "price": 0.20,
+      "type": "Tangable"
+    },
+    {
+      "id": "af475551-5c43-463c-a20b-048239469847",
+      "name": "Diet 7up",
+      "description": "7up",
+      "quantity": 500,
+      "price": 0.20,
+      "type": "Tangable"
+    }
+  ]
